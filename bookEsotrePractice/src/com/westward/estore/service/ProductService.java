@@ -16,5 +16,5 @@ public interface ProductService {
 	Product findById(String id) throws Exception;
 	
 	@PrivilegeInfo("下载榜单")
-	List<Product> findSell() throws PrivilegeException,Exception;
+	List<Product> findSell(User user) throws PrivilegeException,Exception;
 }

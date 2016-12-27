@@ -9,7 +9,6 @@ import com.westward.estore.service.ProductService;
 
 public class ProductServiceImpl implements ProductService {
 	public ProductServiceImpl() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -26,12 +25,13 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product findById(String id) throws Exception {
-		// TODO Auto-generated method stub
+		
+		
 		return null;
 	}
 
 	@Override
-	public List<Product> findSell() throws PrivilegeException, Exception {
+	public List<Product> findSell(User user) throws PrivilegeException, Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

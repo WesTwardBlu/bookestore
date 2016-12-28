@@ -4,9 +4,6 @@ package com.westward.estore.domain;
  * 对表orderitem的orm映射 订单项
  * */
 public class OrderItem {
-	public OrderItem() {
-	}
-	
 	private String order_id;//订单id
 	private String product_id;//商品id
 	private int buynum;//购买数量
@@ -14,6 +11,10 @@ public class OrderItem {
 	//要查询订单中商品信息时，可以将商品信息封装到OrderItem类中
 	private String name;//商品名称
 	private double price;//商品价格
+	
+	public OrderItem() {
+	}
+	
 	public String getOrder_id() {
 		return order_id;
 	}

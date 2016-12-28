@@ -21,6 +21,9 @@ public class Order implements Serializable{
 	//订单中包含多个订单项。通过订单查询订单内容(项)
 	private List<OrderItem> orderItems;
 
+	public Order() {
+	}
+	
 	public String getId() {
 		return id;
 	}

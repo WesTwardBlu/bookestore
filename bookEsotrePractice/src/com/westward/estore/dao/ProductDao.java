@@ -13,6 +13,10 @@ import com.westward.estore.domain.OrderItem;
 import com.westward.estore.domain.Product;
 import com.westward.estore.utils.DataSourceUtils;
 
+/**
+ * data access object
+ * @version 1.0
+ * */
 public class ProductDao {
 	public ProductDao() {
 	}

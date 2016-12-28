@@ -24,6 +24,10 @@ public class User implements Serializable{
 	private int state;//是否激活
 	private String activecode;//激活码 UUID获取
 	private Timestamp updatetime;//更新时间
+	
+	public User() {
+	}
+	
 	public int getId() {
 		return id;
 	}

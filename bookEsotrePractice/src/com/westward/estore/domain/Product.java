@@ -13,8 +13,12 @@ public class Product implements Serializable{
 	private String imgurl;//图片路径
 	private String description;//描述
 	
+	//在获取销售榜单信息时使用
 	private int totalSaleNum;//总销售数量
 
+	public Product() {
+	}
+	
 	public String getId() {
 		return id;
 	}
@@ -55,12 +59,12 @@ public class Product implements Serializable{
 		this.pnum = pnum;
 	}
 
-	public String getImgurl() {//d:\\img\1.jpg
+	public String getImgurl() {//  /upload/11/13/b1043872-3d19-48a4-a7e8-4666f8eb7fbb.jpg
 		return imgurl;
 	}
 	
 	//获得缩率图路径
-	public String getImgurl_s() {//d:\\img\1_s.jpg
+	public String getImgurl_s() {	//	/upload/11/13/b1043872-3d19-48a4-a7e8-4666f8eb7fbb_s.jpg
 		int index= imgurl.lastIndexOf(".");
 		String filename= imgurl.substring(0, index);
 		String ext= imgurl.substring(index);

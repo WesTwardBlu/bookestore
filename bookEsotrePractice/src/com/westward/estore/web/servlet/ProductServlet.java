@@ -25,7 +25,7 @@ public class ProductServlet extends HttpServlet {
 	}
 
 	
-
+	//根据id查找商品
 	private void findById(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String id= req.getParameter("id");
 		try {
@@ -40,7 +40,7 @@ public class ProductServlet extends HttpServlet {
 	}
 
 
-
+	//查找全部商品
 	private void findAll(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			ProductService productService= ProductServiceFactory.getInstance();//得到productservice的动态代理对象，可以对相关方法进行权限判断
@@ -50,7 +50,6 @@ public class ProductServlet extends HttpServlet {
 			
 			req.getRequestDispatcher("/page.jsp").forward(req, resp);//转发
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

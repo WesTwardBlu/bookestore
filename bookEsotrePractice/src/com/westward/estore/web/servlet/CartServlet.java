@@ -37,7 +37,7 @@ public class CartServlet extends HttpServlet {
 			String id= req.getParameter("id");
 			Product product= ProductServiceFactory.getInstance().findById(id);
 			HttpSession session= req.getSession();
-			Map<Product, Integer> cart= (Map<Product, Integer>) session.getAttribute("cart");
+			Map<Product, Integer> cart= (Map<Product, Integer>) session.getAttribute("cart");//购物车，采用hashmap的数据结构来实现。所以Product必须重写equals和hashcode方法
 			if (cart==null) {
 				cart= new HashMap<>();
 			}

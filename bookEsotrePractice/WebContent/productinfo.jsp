@@ -20,7 +20,7 @@
 	<table>
 		<tr>
 			<td rowspan="5">
-				<img alt="商品" src="${pageContext.request.contextPath+ ${p.imgurl_s }">
+				<img alt="商品" src="${pageContext.request.contextPath}${p.imgurl_s }">
 			</td>
 			<td>
 				商品名称：${p.name }	

@@ -169,9 +169,9 @@
 													<div class="art-layout-cell">
 														<div class="overview-table-inner">
 															<h4>${p.name }</h4>
-															<img alt="" src="${pageContext.request.servletContext + p.imgurl}">
+															<img alt="" src="${pageContext.request.contextPath + p.imgurl}">
 															<p>价格：￥${p.price }</p>
-															<p><a href="${pageContext.request..servletContext }/product?method=findById&id=${p.id}">速速抢购</a></p>
+															<p><a href="${pageContext.request.contextPath }/product?method=findById&id=${p.id}">速速抢购</a></p>
 														</div>
 													</div>
 													

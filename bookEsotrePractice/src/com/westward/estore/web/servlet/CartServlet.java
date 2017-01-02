@@ -22,13 +22,31 @@ public class CartServlet extends HttpServlet {
 		String method= req.getParameter("method");
 		if ("add".equals(method)) {
 			add(req,resp);
-		}else if ("".equals(method)) {
-			
-		}else {
-
+		}else if ("remove".equals(method)) {
+			remove(req,resp);
+		}else if("update".equals(method)){
+			update(req,resp);
 		}
 	}
 	
+	/**
+	 * 清空某商品
+	 * 若购物车商品为零，则清除购物车
+	 * */
+	private void remove(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		String id=  req.getParameter("id");
+		Product product= new Product();
+		product.setId(id);
+		Map<Product, Integer> cart= (Map<Product, Integer>) req.getSession().getAttribute("cart");
+		if (cart!=null) {
+			cart.remove(product);
+		}
+		if (cart.size()==0) {
+			req.getSession().removeAttribute("cart");
+		}
+		resp.sendRedirect(req.getContextPath()+ "/showCart.jsp");
+	}
+
 	/**
 	 * 添加商品到购物车
 	 * */
@@ -52,6 +70,29 @@ public class CartServlet extends HttpServlet {
 		}
 		resp.sendRedirect(req.getContextPath()+ "/index.jsp");
 		
+	}
+	
+	/**
+	 * 修改购物车商品数量
+	 * */
+	private void update(HttpServletRequest req,HttpServletResponse resp) throws IOException{
+		String id= req.getParameter("id");
+		int count= Integer.parseInt(req.getParameter("count"));
+		Product product= new Product();
+		product.setId(id);
+		Map<Product, Integer> cart= (Map<Product, Integer>) req.getSession().getAttribute("cart");
+		
+		if (cart!=null) {
+			if (count==0) {
+				cart.remove(product);
+			}else {
+					cart.put(product, count);
+			}
+			if (cart.size()==0) {
+				req.getSession().removeAttribute("cart");
+			}
+		}
+		resp.sendRedirect(req.getContextPath()+ "/showCart.jsp");
 	}
 
 	@Override

@@ -23,6 +23,7 @@
 				<td>收货地址</td>
 				<td>
 					<input type="text" name="receiverinfo" >
+					<%--利用apache commons beanutils来封装javabean，所以此处name的名字必须和javabean属性的名字保持一致 --%>
 				</td>
 			</tr>
 			<tr>
@@ -49,6 +50,7 @@
 			<tr>
 				<td>订单总价：￥${sumPrice }元
 					<input name="money" type="hidden" value="${sumPrice }">
+					<%--利用apache commons beanutils来封装javabean，所以此处name的名字必须和javabean属性的名字保持一致 --%>
 				</td>
 				<td align="right">
 					<input type="submit" value="生成订单" >

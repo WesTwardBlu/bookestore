@@ -1,8 +1,10 @@
 package com.westward.estore.service.impl;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.westward.estore.dao.OrderDao;
+import com.westward.estore.dao.OrderItemDao;
 import com.westward.estore.dao.ProductDao;
 import com.westward.estore.domain.Order;
 import com.westward.estore.domain.OrderItem;
@@ -15,17 +17,30 @@ public class OrderServiceImpl implements OrderService{
 
 	//添加订单
 	@Override
-	public void add(User user, Order order) throws PrivilegeException, Exception {
+	public void add(User user, Order order) throws PrivilegeException {
 		OrderDao orderDao= new OrderDao();
-		orderitemd
+		OrderItemDao orderItemDao= new OrderItemDao();
 		ProductDao productDao= new ProductDao();
 		
-		DataSourceUtils.startTransaction();
-		orderDao.createOrder(order);
-		orderItem.
-		
-		
-		
+		try {
+			DataSourceUtils.startTransaction();
+			orderDao.createOrder(order);
+			orderItemDao.addOrderItem(order);
+			productDao.subProductCount(order);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				DataSourceUtils.rollBack();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+				DataSourceUtils.commit();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	//查找订单

@@ -2,6 +2,7 @@ package com.westward.estore.web.servlet;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,9 @@ public class OrderServlet extends HttpServlet {
 		String method= req.getParameter("method");
 		if ("add".equals(method)) {
 			add(req,resp);
+		}else if ("search".equals(method)) {
+			search(req, resp);
+			
 		}
 	}
 	
@@ -65,6 +69,29 @@ public class OrderServlet extends HttpServlet {
 			OrderServiceFactory.newInstance().add(user, order);//使用动态代理类service添加订单对象到数据库
 			resp.getWriter().write("下单成功，<a href='"+ req.getContextPath()+ "/index.jsp'>继续购物</a>,<a href='"+ req.getContextPath()+ "/order?method=search'>查看订单</a>");
 		} catch (PrivilegeException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	/**
+	 * 查看订单
+	 * @throws PrivilegeException 
+	 * @throws IOException 
+	 * */
+	private void search(HttpServletRequest request,HttpServletResponse response) throws  IOException{
+		User user= (User) request.getSession().getAttribute("user");
+		if (user==null) {
+			response.getWriter().write("请先<a href='"+ request.getContextPath()+ "/index.jsp'>登录</a>");
+			return;
+		}
+		try {
+			List<Order> orders = OrderServiceFactory.newInstance().find(user);//查看订单
+			request.getSession().setAttribute("orders", orders);
+			request.getRequestDispatcher("/showOrder.jsp").forward(request, response);
+		} catch (PrivilegeException | SQLException | ServletException  e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();

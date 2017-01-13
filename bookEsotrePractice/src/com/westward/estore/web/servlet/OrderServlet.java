@@ -18,6 +18,8 @@ import com.westward.estore.domain.Order;
 import com.westward.estore.domain.OrderItem;
 import com.westward.estore.domain.Product;
 import com.westward.estore.domain.User;
+import com.westward.estore.exception.PrivilegeException;
+import com.westward.estore.factory.OrderServiceFactory;
 
 public class OrderServlet extends HttpServlet {
 	@Override
@@ -45,8 +47,8 @@ public class OrderServlet extends HttpServlet {
 		}
 		order.setUser_id(user.getId());
 		//将订单项装配到订单
-		Map<Product, Integer> cart= (Map<Product, Integer>) req.getSession().getAttribute("cart");
-		List<OrderItem> orderItems= new ArrayList<>();
+		Map<Product, Integer> cart= (Map<Product, Integer>) req.getSession().getAttribute("cart");//取得购物车
+		List<OrderItem> orderItems= new ArrayList<>();//订单项
 		for (Product product : cart.keySet()) {
 			OrderItem orderItem= new OrderItem();
 			orderItem.setOrder_id(order.getId());
@@ -59,7 +61,14 @@ public class OrderServlet extends HttpServlet {
 		order.setOrderItems(orderItems);
 		
 		//调用OrderService中方法，创建订单
-		orderservice
+		try {
+			OrderServiceFactory.newInstance().add(user, order);//使用动态代理类service添加订单对象到数据库
+			resp.getWriter().write("下单成功，<a href='"+ req.getContextPath()+ "/index.jsp'>继续购物</a>,<a href='"+ req.getContextPath()+ "/order?method=search'>查看订单</a>");
+		} catch (PrivilegeException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 

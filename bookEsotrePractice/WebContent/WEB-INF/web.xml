@@ -49,7 +49,24 @@
 		<servlet-name>orderservlet</servlet-name>
 		<url-pattern>/order</url-pattern>		
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>checkcode</servlet-name>
+		<servlet-class>com.westward.estore.web.servlet.CheckImgServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>checkcode</servlet-name>
+		<url-pattern>/checkcode</url-pattern>		
+	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>user</servlet-name>
+		<servlet-class></servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>user</servlet-name>
+		<url-pattern>/user</url-pattern>		
+	</servlet-mapping>
+	<!-- servlet -->
 	
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

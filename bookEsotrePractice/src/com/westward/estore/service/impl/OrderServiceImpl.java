@@ -62,8 +62,10 @@ public class OrderServiceImpl implements OrderService{
 		return orders;
 	}
 
-	//删除订单
-	//根据订单id删除订单
+	/**
+	 * 删除订单和订单项在库里的数据，
+	 * 更改商品数量
+	 * */
 	@Override
 	public void delete(String id) throws OrderException  {
 		OrderDao orderDao= new OrderDao();

@@ -21,6 +21,7 @@ import com.westward.estore.domain.Product;
 import com.westward.estore.domain.User;
 import com.westward.estore.exception.PrivilegeException;
 import com.westward.estore.factory.OrderServiceFactory;
+import com.westward.estore.service.OrderService;
 
 public class OrderServlet extends HttpServlet {
 	@Override
@@ -31,6 +32,8 @@ public class OrderServlet extends HttpServlet {
 		}else if ("search".equals(method)) {
 			search(req, resp);
 			
+		}else if ("delete".equals(method)) {
+			delete(req, resp);
 		}
 	}
 	
@@ -99,6 +102,25 @@ public class OrderServlet extends HttpServlet {
 		
 	}
 
+	/**
+	 * 取消订单调用的方法，
+	 * 删除订单和订单项在库里的数据，
+	 * 更改商品数量
+	 * @throws IOException 
+	 * */
+	private void delete(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		String id= request.getParameter("id");
+		//调用service层
+		OrderService orderService= OrderServiceFactory.newInstance();
+		try {
+			orderService.delete(id);
+			response.sendRedirect(request.getContextPath()+ "/order?method=search");
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.getWriter().write(e.getMessage());
+		}
+	}
+	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doGet(req, resp);

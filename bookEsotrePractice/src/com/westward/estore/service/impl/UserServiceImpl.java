@@ -7,6 +7,7 @@ import javax.mail.internet.AddressException;
 
 import com.westward.estore.dao.UserDao;
 import com.westward.estore.domain.User;
+import com.westward.estore.exception.LoginException;
 import com.westward.estore.exception.RegistException;
 import com.westward.estore.service.UserService;
 import com.westward.estore.utils.MailUtils;
@@ -30,15 +31,56 @@ public class UserServiceImpl implements UserService{
 		}
 	}
 	
+	/**
+	 * <b>service层</b><br>
+	 * 判断用户名秘密<br>
+	 * 判断用户是否激活
+	 * */
 	@Override
-	public User login(String username, String password) throws Exception {
-		// TODO 待补全
-		return null;
+	public User login(String username, String password) throws LoginException {
+		UserDao userDao= new UserDao();
+		User user= null;
+		try {
+			user= userDao.findUserByUserNameAndPassword(username, password);
+			if (user==null) {
+				throw new LoginException("用户名或密码不正确");
+			}
+			//判断用户状态
+			if (0==user.getState()) {
+				throw new LoginException("用户未激活");
+			}
+		} catch (SQLException e) {
+			throw new LoginException("登录失败", e);
+		}
+		
+		return user;
 	}
 	
+	/**
+	 * service层激活用户方法<br>
+	 * 1.先判断激活码是否超时<br>
+	 * 2.根据激活码激活用户
+	 * */
 	@Override
 	public void activeUser(String activecode) throws Exception {
-		// TODO 待补全
+		UserDao userDao= new UserDao();
+		User user= null;
+		try {
+			user= userDao.findUserByActiveCode(activecode);
+		} catch (SQLException e) {
+			throw new RegistException("根据激活码查找用户失败", e);
+		}
+		// 判断激活码是否超时 生产是12小时，测试 1分钟
+		long time= System.currentTimeMillis()- user.getUpdatetime().getTime();
+		if (time> 12*60*60*1000) {
+			throw new RegistException("激活码过期");
+		}
+		//进行激活操作
+		try {
+			userDao.activeUserByActivecode(activecode);
+		} catch (SQLException e) {
+			throw new RegistException("激活失败！", e);
+		}
 		
 	}
 }

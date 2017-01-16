@@ -46,8 +46,8 @@ public class AutoLoginFilter implements Filter{
 			if ( !("/regist.jsp".equalsIgnoreCase(path) || "/regist".equalsIgnoreCase(path) || "/login".equalsIgnoreCase(path)  ) ) {
 				Cookie cookie= CookieUtils.findCookieByName(request2.getCookies(), "autologin");
 				if (cookie!=null) {
-					String username= URLDecoder.decode(cookie.getValue().split("%%wtd")[0], "utf-8");
-					String password= cookie.getValue().split("%wtd%")[1];
+					String username= URLDecoder.decode(cookie.getValue().split("%split%")[0], "utf-8");
+					String password= cookie.getValue().split("%split%")[1];
 					UserService userService= new UserServiceImpl();
 					try {
 						User existUser= userService.login(username, password);

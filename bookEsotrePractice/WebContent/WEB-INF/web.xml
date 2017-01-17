@@ -60,12 +60,33 @@
 	
 	<servlet>
 		<servlet-name>user</servlet-name>
-		<servlet-class></servlet-class>
+		<servlet-class>com.westward.estore.web.servlet.UserServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>user</servlet-name>
 		<url-pattern>/user</url-pattern>		
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>download</servlet-name>
+		<servlet-class>com.westward.estore.web.servlet.DownloadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>download</servlet-name>
+		<url-pattern>/download</url-pattern>		
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>addProduct</servlet-name>
+		<servlet-class>com.westward.estore.web.servlet.AddProductServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>addProduct</servlet-name>
+		<url-pattern>/addProduct</url-pattern>		
+	</servlet-mapping>
+	
+	
+	
 	<!-- servlet -->
 	
 	<welcome-file-list>
